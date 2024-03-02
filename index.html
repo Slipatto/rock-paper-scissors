@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rock - Paper - Scissors</title>
 </head>
 
 <body>
@@ -22,7 +22,18 @@
     change console.logs into DOM methods
     Display the running score. announce a winner of the game once someone
     reaches 5 points -->
+    <h1>Please select a choice:</h1>
 
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+
+    <div>
+        <p id="player1">You have not selected a choice</p>
+        <p id="computer">The computer has no selected a choice</p>
+        <p id="results">You have won 0 games, the computer has won 0 games.</p>
+    </div>
+    
 <script>
 
 // Function for the computers choice in the game
@@ -78,6 +89,7 @@ function playGame() {
     let computercount = 0
     do {
         let player1 = playerChoice()
+        // This needs to be changed to reference the button chosen
         let computer = getComputerChoice()
         let game = playRound(player1)
         alert(game)

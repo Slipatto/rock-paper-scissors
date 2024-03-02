@@ -22,20 +22,18 @@
     change console.logs into DOM methods
     Display the running score. announce a winner of the game once someone
     reaches 5 points -->
-    <h1>Please select a choice:</h1>
 
+    <h1>Please select a choice:</h1>
+        <!-- Buttons for player selection -->
     <button id="rock">Rock</button>
     <button id="paper">Paper</button>
     <button id="scissors">Scissors</button>
-
-    <div>
+        <!-- Text items to show results -->
+    <div id="scoreBoard">
         <p id="player1">You have not selected a choice</p>
-        <p id="computer">The computer has no selected a choice</p>
-        <p id="results">You have won 0 games, the computer has won 0 games.</p>
     </div>
-    
-<script>
 
+<script>
 // Function for the computers choice in the game
 function getComputerChoice() {
     const gameChoice = ['rock', 'paper', 'scissors']
@@ -47,20 +45,21 @@ function getComputerChoice() {
 function playRound(input) {
     player2 = getComputerChoice()
     if (input === player2) {
-    return 'Tie!';
+    outcome = 'Tie!';
     } else if (input === 'rock' && player2 === 'paper') {
-    return `You Lose! ${player2} beats ${input}`;
+    outcome = `You Lose! ${player2} beats ${input}`;
     } else if (input === 'rock' && player2 === 'scissors') {
-    return `You Win! ${input} beats ${player2}`;
+    outcome = `You Win! ${input} beats ${player2}`;
     } else if (input === 'paper' && player2 === 'scissors') {
-    return `You Lose! ${player2} beats ${input}`;
+    outcome = `You Lose! ${player2} beats ${input}`;
     } else if (input === 'paper' && player2 === 'rock') {
-    return `You Win! ${input} beats ${player2}`;
+    outcome = `You Win! ${input} beats ${player2}`;
     } else if (input === 'scissors' && player2 === 'rock') {
-    return `You Lose! ${player2} beats ${input}`;
+    outcome = `You Lose! ${player2} beats ${input}`;
     } else if (input === 'scissors' && player2 === 'paper') {
-    return `You Win! ${input} beats ${player2}`;
+    outcome = `You Win! ${input} beats ${player2}`;
     }
+    return {outcome, player2};
     }
   
 // Function for validating and acquiring player ones choice
@@ -102,8 +101,44 @@ function playGame() {
     while (playercount != 3 && computercount != 3);
 }
 
-// Call the function to play the game
-playGame()
+// Call the function to play the game (no longer necessary)
+// playGame()
+
+// Declare variables and link to html items
+const rock = document.querySelector('#rock')
+const paper = document.querySelector('#paper')
+const scissors = document.querySelector('#scissors')
+const player1 = document.querySelector('#player1')
+const scoreBoard = document.querySelector('#scoreBoard')
+
+// Add event listeners for html buttons
+rock.addEventListener('click', () =>  {
+    let input = 'rock';
+    let { outcome, player2 } = playRound(input);
+    player1.textContent = 'You have selected Rock!';
+
+    let computer = document.createElement('p');
+    computer.textContent = `Computer has selected ${player2}`;
+    scoreBoard.appendChild(computer);
+
+    let result = document.createElement('p');
+    result.textContent = outcome;
+    scoreBoard.appendChild(result);
+})
+
+paper.addEventListener('click', () =>  {
+    let input = 'paper';
+    playRound(input);
+    player1.textContent = 'You have selected Paper!'
+})
+
+scissors.addEventListener('click', () =>  {
+    let input = 'scissors';
+    playRound(input);
+    player1.textContent = 'You have selected Scissors!'
+})
+
+
 </script>
 
 </body>

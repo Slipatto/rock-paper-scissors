@@ -13,6 +13,16 @@
     Compare Player1 input to Player 2 random choice to determine winner
     Return a string declaring winner or loser
     Compare player 1 wins to player 2 wins - first to 3 wins is the champion -->
+
+    <!-- PSUEDOCODE#2
+    Create a button for each selection (rock, paper, scissors)
+    Add event listeners to each - should call playRound with the correct   
+    playerSelection for each button
+    Add a div to display results 
+    change console.logs into DOM methods
+    Display the running score. announce a winner of the game once someone
+    reaches 5 points -->
+
 <script>
 
 // Function for the computers choice in the game
@@ -43,23 +53,24 @@ function playRound(input) {
     }
   
 // Function for validating and acquiring player ones choice
-function playerChoice() {
-    // Ask the player for input, convert to lowercase
-    let stop = false;
-    let choice;
+// Player ones choice no longer needs to be validated
+// function playerChoice() {
+//     // Ask the player for input, convert to lowercase
+//     let stop = false;
+//     let choice;
 
     // Use a loop to to ensure that the player is inputting the correct selection
-    do {
-        choice = prompt("Welcome to Rock, Paper, Scissors, please choose a play (Rock, Paper or Scissors)");
+//     do {
+//         choice = prompt("Welcome to Rock, Paper, Scissors, please choose a play (Rock, Paper or Scissors)");
             
-        if (choice.toLowerCase() === 'rock' || choice.toLowerCase() === 'paper' || choice.toLowerCase() === 'scissors') {
-            stop = true;
-        } else {
-            stop = false;
-        }
-    } while (!stop);
-    return choice;
-}
+//         if (choice.toLowerCase() === 'rock' || choice.toLowerCase() === 'paper' || choice.toLowerCase() === 'scissors') {
+//             stop = true;
+//         } else {
+//             stop = false;
+//         }
+//     } while (!stop);
+//     return choice;
+// }
 
 // Function to play the game, loops until one player reaches 3 wins
 function playGame() {

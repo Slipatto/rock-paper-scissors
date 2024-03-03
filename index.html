@@ -29,9 +29,10 @@
     <button id="paper">Paper</button>
     <button id="scissors">Scissors</button>
         <!-- Text items to show results -->
-    <div id="scoreBoard">
+    <div id="roundBoard">
         <p id="player1">You have not selected a choice</p>
     </div>
+    <div id="runningScore"></div>
 
 <script>
 // Function for the computers choice in the game
@@ -82,61 +83,123 @@ function playRound(input) {
 //     return choice;
 // }
 
-// Function to play the game, loops until one player reaches 3 wins
-function playGame() {
-    let playercount = 0
-    let computercount = 0
-    do {
-        let player1 = playerChoice()
-        // This needs to be changed to reference the button chosen
-        let computer = getComputerChoice()
-        let game = playRound(player1)
-        alert(game)
-        if (game.includes('Win')) {
+// Function to play the game, loops until one player reaches 3 wins (No longer needed)
+// function playGame() {
+//     let playercount = 0
+//     let computercount = 0
+//     do {
+//         let player1 = playerChoice()
+//         // This needs to be changed to reference the button chosen
+//         let computer = getComputerChoice()
+//         let game = playRound(player1)
+//         alert(game)
+//         if (game.includes('Win')) {
+//             playercount += 1;
+//         } else if (game.includes('Lose')) {
+//             computercount += 1; 
+//         }
+//         }
+//     while (playercount != 3 && computercount != 3);
+// }
+
+function checkScore(outcome) {
+    if (outcome.includes('Win')) {
             playercount += 1;
-        } else if (game.includes('Lose')) {
+        } else if (outcome.includes('Lose')) {
             computercount += 1; 
-        }
-        }
-    while (playercount != 3 && computercount != 3);
+    }
+    return {playercount, computercount}; 
+}
+
+function checkGame(playercount, computercount) {
+    if (playercount === 5) {
+        endGame = 'You win!';
+    } else if (computercount === 5) {
+        endGame = 'You lose!';
+    }
+    return endGame;
 }
 
 // Call the function to play the game (no longer necessary)
 // playGame()
 
 // Declare variables and link to html items
-const rock = document.querySelector('#rock')
-const paper = document.querySelector('#paper')
-const scissors = document.querySelector('#scissors')
-const player1 = document.querySelector('#player1')
-const scoreBoard = document.querySelector('#scoreBoard')
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
+const player1 = document.querySelector('#player1');
+const roundBoard = document.querySelector('#roundBoard');
+const runningScore = document.querySelector('#runningScore');
+let outcome;
+let player2;
+let endGame = '';
+let playercount = 0;
+let computercount = 0;
 
 // Add event listeners for html buttons
 rock.addEventListener('click', () =>  {
+    roundBoard.textContent = '';
     let input = 'rock';
     let { outcome, player2 } = playRound(input);
     player1.textContent = 'You have selected Rock!';
 
     let computer = document.createElement('p');
     computer.textContent = `Computer has selected ${player2}`;
-    scoreBoard.appendChild(computer);
+    roundBoard.appendChild(computer);
 
     let result = document.createElement('p');
     result.textContent = outcome;
-    scoreBoard.appendChild(result);
+    roundBoard.appendChild(result);
+
+    checkScore(outcome);
+    checkGame(playercount, computercount);
+
+    runningScore.textContent = `You currently have ${playercount} wins and ${computercount} losses. ${endGame}`;
+    roundBoard.appendChild(runningScore);
 })
 
 paper.addEventListener('click', () =>  {
+    roundBoard.textContent = '';
     let input = 'paper';
     playRound(input);
     player1.textContent = 'You have selected Paper!'
+
+    let computer = document.createElement('p');
+    computer.textContent = `Computer has selected ${player2}`;
+    roundBoard.appendChild(computer);
+
+    let result = document.createElement('p');
+    result.textContent = outcome;
+    roundBoard.appendChild(result);
+
+    checkScore(outcome);
+    checkGame(playercount, computercount);
+    runningScore.textContent = `You currently have ${playercount} wins and ${computercount} losses. ${endGame}`;
+    roundBoard.appendChild(runningScore);
 })
 
 scissors.addEventListener('click', () =>  {
+    roundBoard.textContent = '';
     let input = 'scissors';
     playRound(input);
     player1.textContent = 'You have selected Scissors!'
+
+    let computer = document.createElement('p');
+    computer.textContent = `Computer has selected ${player2}`;
+    roundBoard.appendChild(computer);
+
+    let result = document.createElement('p');
+    result.textContent = outcome;
+    roundBoard.appendChild(result);
+
+    checkScore(outcome);
+    checkGame(playercount, computercount);
+
+    runningScore.textContent = `You currently have ${playercount} wins and ${computercount} losses. ${endGame}`;
+    roundBoard.appendChild(runningScore);
 })
+
+
 
 
 </script>
